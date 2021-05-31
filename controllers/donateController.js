@@ -41,6 +41,11 @@ const createDonor = async (req, res) => {
 
     const newDonor = await Donor.create(donor);
 
+    if (!newDonor) {
+      res.writeHead(404, { "Content-Type": "application/json" })
+      res.end(JSON.stringify({ "status": "Unable to create new donor" }));
+    }
+
     res.writeHead(201, { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" });
     return res.end(JSON.stringify({ message: "Donor saved!", data: newDonor }));
 
@@ -53,7 +58,10 @@ const createDonor = async (req, res) => {
 const getAllDonors = async (req, res) => {
   try {
     const donors = await Donor.getAll();
-
+    if (!donors) {
+      res.writeHead(404, { "Content-Type": "application/json" })
+      res.end(JSON.stringify({"status": "No donors found"}));
+    }
     res.writeHead(200, { "Content-Type": "application/json" })
     res.end(JSON.stringify(donors));
   } catch (error) {

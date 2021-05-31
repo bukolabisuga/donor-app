@@ -5,9 +5,9 @@ const { createDonor, getAllDonors } = require("./controllers/donateController");
 const baseUrl = '/api/donors';
 
 const server = http.createServer((req, res) => {
-  if (req.url === `${baseUrl}/get` && req.method === "GET") {
+  if (req.url === `${baseUrl}` && req.method === "GET") {
     getAllDonors(req, res);
-  } else if (req.url === `${baseUrl}/save` && req.method === "POST") {
+  } else if (req.url === `${baseUrl}` && req.method === "POST") {
     createDonor(req, res);
   } else {
     res.writeHead(404, { "Content-Type": "application/json" })
